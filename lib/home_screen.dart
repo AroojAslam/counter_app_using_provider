@@ -10,22 +10,27 @@ class HomeScreen extends StatelessWidget {
     final countProvider = Provider.of<CountProvider>(context,listen: false);
     return Scaffold(
       body: Center(
-        child: Column(
+        child:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Consumer<CountProvider>(builder: (context, value, child) {
-              return Text(value.count.toString(),style: TextStyle(fontSize: 50,color: Colors.primaries[value.generatedColor]),);
+            return  Text(value.count.toString(),style: TextStyle(
+                fontSize: 50,color: Colors.primaries[value.generatedColor]
+              ),);
             },)
           ],
-        ),
+        )
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-         countProvider.setCount();
-         countProvider.setcolor();
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: Consumer<CountProvider>(builder: (context, value, child) {
+        return FloatingActionButton(
+          backgroundColor: Colors.primaries[value.generatedColor],
+          onPressed: (){
+            countProvider.setCount();
+            countProvider.setcolor();
+          },
+          child: Icon(Icons.add),
+        );
+      },)
     );
   }
 }
