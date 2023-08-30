@@ -13,14 +13,16 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
-            Text(countProvider.count.toString(),style: TextStyle(fontSize: 50),)
+            Consumer<CountProvider>(builder: (context, value, child) {
+              return Text(value.count.toString(),style: TextStyle(fontSize: 50,color: Colors.primaries[value.generatedColor]),);
+            },)
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
          countProvider.setCount();
+         countProvider.setcolor();
         },
         child: Icon(Icons.add),
       ),
